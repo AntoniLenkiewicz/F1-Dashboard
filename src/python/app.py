@@ -1,6 +1,8 @@
 import time
-from flask import Flask
+from datetime import datetime, timezone
+from flask import Flask, jsonify, request
 import fastf1
+from models import GetStandings
 
 fastf1.Cache.enable_cache("./cache")
 
@@ -11,8 +13,6 @@ lapData = session.laps
 laps = lapData.pick_drivers('VER')
 telemetry = laps.get_car_data()
 position = laps.get_pos_data()
-print(telemetry.head())
-print(position.head())
 
 
 app = Flask(__name__)
@@ -21,6 +21,13 @@ app = Flask(__name__)
 def get_current_time():
     return {'time': time.time()}
 
+
+@app.route('/api/standings')
+def get_driver_standings():
+    year = datetime.now().year
+    season = int(request.args.get('year', year))
+    driver_standings = GetStandings(season)
+    return(driver_standings)
 
 
 
