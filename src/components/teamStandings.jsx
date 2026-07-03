@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 
 
-function TeamStandings({ teamStandings }){
+function TeamStandings({ className = '', teamStandings }){
     return (
-    <div className='standings-table'>
+    <div className={`standings-table ${className}`}>
         <table>
             <thead>
             <tr>

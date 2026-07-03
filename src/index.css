@@ -5,16 +5,13 @@ body {
 
 @layer components {
   .standings-table {
-    @apply w-full border-2 rounded border-gray-700 text-sm;
-    @apply m-5;
-    @apply overflow-y-auto;
-    @apply max-h-70;
-    @apply col-span-1;
-    @apply row-span-1;
+    @apply w-full border-3 rounded-md border-gray-700 text-sm overflow-y-auto max-h-100 col-span-1 row-span-4;
   }
-
+  .standings-table table {
+    @apply w-full table-fixed
+}
   .standings-table th {
-    @apply bg-orange-300 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
+    @apply bg-orange-200 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
   }
 
   .standings-table td {
@@ -23,5 +20,8 @@ body {
 
   .standings-table tr:hover {
     @apply bg-gray-800/50;
+  }
+  .next-event {
+    @apply w-full border-3 rounded-md border-gray-700 text-sm overflow-y-auto max-h-100;
   }
 }

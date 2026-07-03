@@ -30,7 +30,7 @@ function App() {
       </Routes>
       </section>
     </>
-  )
+  );
 }
 
 export default App

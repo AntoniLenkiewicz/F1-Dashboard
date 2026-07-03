@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 
 
-function DriverStandings({ driverStandings }){
+function DriverStandings({ className='', driverStandings }){
     return (
-    <div className='standings-table'>
+    <div className={`standings-table ${className}`}>
         <table>
             <thead>
             <tr>

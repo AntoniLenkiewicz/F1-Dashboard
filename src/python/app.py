@@ -2,7 +2,7 @@ import time
 from datetime import datetime, timezone
 from flask import Flask, jsonify, request
 import fastf1
-from models import GetDriverStandings, GetTeamStandings
+from models import GetDriverStandings, GetTeamStandings, GetNextEvent
 
 fastf1.Cache.enable_cache("./cache")
 
@@ -27,7 +27,6 @@ def get_driver_standings():
     year = datetime.now().year
     season = int(request.args.get('year', year))
     driver_standings = GetDriverStandings(season)
-    print(driver_standings)
     return(driver_standings)
 
 @app.route('/api/teamstandings')
@@ -35,8 +34,12 @@ def get_team_standings():
     year = datetime.now().year
     season = int(request.args.get('year', year))
     team_standings = GetTeamStandings(season)
-    print(team_standings)
     return(team_standings)
+
+@app.route('/api/getnextevent')
+def get_next_event():
+    event = GetNextEvent()
+    return event
 
 # fast f1 
 def on_message(msg):

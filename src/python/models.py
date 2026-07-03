@@ -2,7 +2,7 @@ import flask
 import fastf1
 from datetime import datetime, timezone
 from flask import Flask
-
+from fastf1.livetiming.client import SignalRClient
 
 def GetDriverStandings(season):
     schedule = fastf1.get_event_schedule(season, include_testing=False)
@@ -92,3 +92,30 @@ def GetTeamStandings(season):
             else:
                 standings[teamName] = standings[teamName] + int((race_points + sprint_points))
     return standings
+
+# Will need updating later to return whether the event is currently underway
+def GetNextEvent():
+    year = datetime.now().year
+    schedule = fastf1.get_event_schedule(year, include_testing=False)
+    currentDate = datetime.now(timezone.utc)
+    next_event = ''
+    for _, event in schedule.iterrows():
+        for i in range(1,6):
+            if str(event[f"Session{i}DateUtc"]) > str(currentDate):
+                return {"eventName": event["EventName"],"eventType" : event["EventFormat"], "eventRoundNumber" : event["RoundNumber"] }
+
+
+# Trial for getting live data
+
+# from fastf1.livetiming.client import SignalRClient
+
+# client = SignalRClient(
+#     filename='session_data.txt',
+#     filemode='w',
+#     debug=False,
+#     timeout=60,
+#     logger=None,
+#     no_auth=False
+# )
+
+# client.start()
