@@ -10,14 +10,15 @@ def GetDriverStandings(season):
     short_event_names = []
     currentDate = datetime.now(timezone.utc)
     for _, event in schedule.iterrows():
-        event_name, round_number, event_start = event["EventName"], event["RoundNumber"], event["Session1DateUtc"]
+        event_name, round_number, sprint_start, race_start = event["EventName"], event["RoundNumber"], event["Session3DateUtc"], event["Session5DateUtc"]
         short_event_names.append(event_name.replace("Grand Prix", "").strip())
-        if str(event_start) > str(currentDate):
+        if str(sprint_start) > str(currentDate):
             break
 
         # Load race results
-        race = fastf1.get_session(season, event_name, "R")
-        race.load(laps=False, telemetry=False, weather=False, messages=False)
+        if str(race_start) < str(currentDate):
+            race = fastf1.get_session(season, event_name, "R")
+            race.load(laps=False, telemetry=False, weather=False, messages=False)
         
         # Check for sprint race
         sprint = None
@@ -53,14 +54,15 @@ def GetTeamStandings(season):
     short_event_names = []
     currentDate = datetime.now(timezone.utc)
     for _, event in schedule.iterrows():
-        event_name, round_number, event_start = event["EventName"], event["RoundNumber"], event["Session1DateUtc"]
+        event_name, round_number, sprint_start, race_start = event["EventName"], event["RoundNumber"], event["Session3DateUtc"], event["Session5DateUtc"]
         short_event_names.append(event_name.replace("Grand Prix", "").strip())
-        if str(event_start) > str(currentDate):
+        if str(sprint_start) > str(currentDate):
             break
 
         # Load race results
-        race = fastf1.get_session(season, event_name, "R")
-        race.load(laps=False, telemetry=False, weather=False, messages=False)
+        if str(race_start) < str(currentDate):
+            race = fastf1.get_session(season, event_name, "R")
+            race.load(laps=False, telemetry=False, weather=False, messages=False)
         
         # Check for sprint race
         sprint = None
@@ -90,4 +92,3 @@ def GetTeamStandings(season):
             else:
                 standings[teamName] = standings[teamName] + int((race_points + sprint_points))
     return standings
-print(GetTeamStandings(2026))
