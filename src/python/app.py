@@ -2,7 +2,7 @@ import time
 from datetime import datetime, timezone
 from flask import Flask, jsonify, request
 import fastf1
-from models import GetDriverStandings, GetTeamStandings, GetNextEvent
+from models import GetDriverStandings, GetTeamStandings, GetNextEvent, GetSchedule
 
 fastf1.Cache.enable_cache("./cache")
 
@@ -40,6 +40,11 @@ def get_team_standings():
 def get_next_event():
     event = GetNextEvent()
     return event
+
+@app.route('/api/getschedule')
+def get_event_schedule():
+    schedule = GetSchedule()
+    return schedule
 
 # fast f1 
 def on_message(msg):

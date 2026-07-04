@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react';
 import DriverStandings from "../components/driverStandings";
 import TeamStandings from "../components/teamStandings";
 import NextEvent from '../components/nextEvent';
+import Schedule from '../components/schedule';
+
 function HomePage() {
     const currentYear = new Date().getFullYear();
     const [year, setYear] = useState(currentYear);
     const [driverStandings, setDriverStandings] = useState([]);
     const [teamStandings, setTeamStandings] = useState([]);
     const [nextEvent, setNextEvent] = useState([]);
+    const [schedule, setSchedule] = useState([]);
 
     useEffect(() => {
         fetch(`/api/driverstandings?year=${year}`)
@@ -27,12 +30,19 @@ function HomePage() {
         .then(data => setNextEvent(data))
     }, []);
 
+    useEffect(() => {
+        fetch('/api/getschedule')
+        .then(res => res.json())
+        .then(data => setSchedule(data))
+    }, []);
+
   return (
     <>
-        <div className = 'grid grid-cols-6 grid-rows-12 gap-5'>
+        <div className = 'grid grid-cols-6 grid-rows-4 gap-5'>
             <NextEvent className = 'col-start-2 row-start-1' nextEvent={nextEvent} />
             <DriverStandings className = 'col-start-2 row-start-2' driverStandings={driverStandings} />
             <TeamStandings className = 'col-start-3 row-start-2' teamStandings = {teamStandings} />
+            <Schedule className = 'col-start-4 row-start-1' schedule={schedule} />
         </div>
     </>
   );
