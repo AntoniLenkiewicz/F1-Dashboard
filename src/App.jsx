@@ -19,13 +19,12 @@ function Time() {
 function App() {
   return (
     <>
-      <section id="center">
       <Navbar />
-
-      <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/time' element={<Time />} />
-      </Routes>
+      <section id="center">
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+          <Route path='/time' element={<Time />} />
+        </Routes>
       </section>
     </>
   );

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 function Navbar() {
     return (
-        <nav className = "flex sticky top-0 z-10 bg-red-700 w-full justify-items-start text-gray-100 text-2xl text-bold">
+        <nav className = "nav-bar">
             <div className = "flex mt-5 ml-5 w-full">
                 <p>F1 STATS</p>
             </div>

@@ -1,4 +1,6 @@
 @import "tailwindcss";
+
+
 body {
   @apply min-h-screen flex flex-col bg-gray-100 text-gray-800 font-mono;
 }
@@ -9,20 +11,19 @@ body {
   }
   .standings-table table {
     @apply w-full table-fixed
-}
+  }
   .standings-table th {
     @apply bg-gray-300 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
   }
-
   .standings-table td {
     @apply px-4 py-2 border-b border-gray-700 text-gray-800;
   }
-
   .standings-table tr:hover {
-    @apply bg-gray-800/50;
+    @apply bg-gray-700/50;
   }
+
   .next-event {
-    @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-50 col-span-2 row-span-1 text-left;
+    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto max-h-50 col-span-1 row-span-1 lg:col-span-2;
   }
   .next-event h1 {
     @apply uppercase text-2xl font-bold text-gray-800 p-1;
@@ -30,6 +31,7 @@ body {
   .next-event p {
     @apply uppercase text-lg font-medium text-gray-700 p-1;
   } 
+
   .schedule {
     @apply w-full border-3 rounded-md border-gray-700 text-sm p-1 overflow-y-auto max-h-150 col-span-1 row-span-3;
   }
@@ -42,7 +44,18 @@ body {
   .schedule p {
     @apply font-light text-gray-800;
   }
+
+  .nav-bar {
+    @apply flex sticky top-0 z-10 bg-red-700 w-full justify-items-start text-gray-100 text-2xl font-light lg:mb-10
+  }
 }
+
+@layer pages {
+  .home-page {
+  @apply grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-5 lg:grid-rows-4;
+  }
+}
+
 
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
