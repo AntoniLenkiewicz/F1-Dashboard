@@ -38,11 +38,11 @@ function HomePage() {
 
   return (
     <>
-        <div className = 'grid grid-cols-6 grid-rows-4 gap-5'>
+        <div className = 'grid grid-cols-5 grid-rows-4 gap-5'>
             <NextEvent className = 'col-start-2 row-start-1' nextEvent={nextEvent} />
-            <DriverStandings className = 'col-start-2 row-start-2' driverStandings={driverStandings} />
-            <TeamStandings className = 'col-start-3 row-start-2' teamStandings = {teamStandings} />
-            <Schedule className = 'col-start-4 row-start-1' schedule={schedule} />
+            <DriverStandings className = 'col-start-2 row-start-2 scrollbar' driverStandings={driverStandings} />
+            <TeamStandings className = 'col-start-3 row-start-2 scrollbar' teamStandings = {teamStandings} />
+            <Schedule className = 'col-start-4 row-start-1 scrollbar' schedule={schedule} />
         </div>
     </>
   );

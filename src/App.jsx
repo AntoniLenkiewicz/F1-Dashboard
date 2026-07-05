@@ -3,6 +3,7 @@ import { Routes, Route, Link } from 'react-router-dom';
 import './index.css'
 import HomePage from './pages/homePage'
 import './App.css'
+import Navbar from './components/navbar';
 
 function Time() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -19,10 +20,7 @@ function App() {
   return (
     <>
       <section id="center">
-      <nav>
-        <Link to='/'>Home</Link>
-        <Link to='/time'>Time</Link>
-      </nav>
+      <Navbar />
 
       <Routes>
         <Route path='/' element={<HomePage />} />

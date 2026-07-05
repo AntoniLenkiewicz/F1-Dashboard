@@ -1,36 +1,67 @@
 @import "tailwindcss";
 body {
-  @apply min-h-screen flex flex-col bg-amber-50 text-gray-700;
+  @apply min-h-screen flex flex-col bg-gray-100 text-gray-800 font-mono;
 }
 
 @layer components {
   .standings-table {
-    @apply w-full border-3 rounded-md border-gray-700 text-sm overflow-y-auto max-h-100 col-span-1 row-span-4;
+    @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-1 row-span-4;
   }
   .standings-table table {
     @apply w-full table-fixed
 }
   .standings-table th {
-    @apply bg-orange-200 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
+    @apply bg-gray-300 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
   }
 
   .standings-table td {
-    @apply px-4 py-2 border-b border-gray-700 text-gray-700;
+    @apply px-4 py-2 border-b border-gray-700 text-gray-800;
   }
 
   .standings-table tr:hover {
     @apply bg-gray-800/50;
   }
   .next-event {
-    @apply w-full border-3 rounded-md border-gray-700 text-sm overflow-y-auto max-h-50 col-span-2 row-span-1 text-left;
+    @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-50 col-span-2 row-span-1 text-left;
   }
   .next-event h1 {
-    @apply uppercase font-bold text-gray-700 p-1;
+    @apply uppercase text-2xl font-bold text-gray-800 p-1;
   }
   .next-event p {
-    @apply uppercase font-medium text-gray-700 p-1;
-  }
+    @apply uppercase text-lg font-medium text-gray-700 p-1;
+  } 
   .schedule {
     @apply w-full border-3 rounded-md border-gray-700 text-sm p-1 overflow-y-auto max-h-150 col-span-1 row-span-3;
+  }
+  .schedule h1 {
+    @apply uppercase text-2xl font-bold text-gray-800;
+  }
+  .schedule h2 {
+    @apply text-lg font-medium text-gray-800;
+  }
+  .schedule p {
+    @apply font-light text-gray-800;
+  }
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 15px;
+    height: 15px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f6f3f4;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #d1d5dc;
+    border-radius: 100vh;
+    border: 3px solid #f6f7ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #fffbeb
   }
 }
