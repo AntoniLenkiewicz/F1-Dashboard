@@ -3,7 +3,9 @@ import fastf1
 from datetime import datetime, timezone
 from flask import Flask
 from fastf1.livetiming.client import SignalRClient
+from fastf1.ergast import Ergast
 import math
+import time
 
 def GetDriverStandings(season):
     schedule = fastf1.get_event_schedule(season, include_testing=False)
@@ -83,6 +85,7 @@ def GetNextEvent():
     for _, event in schedule.iterrows():
         for i in range(1,6):
             if str(event[f"Session{i}DateUtc"]) > str(currentDate):
+                time.sleep(2)
                 return {"eventName": event["EventName"],
                         "eventType" : event[(f"Session{i}")], 
                         "eventRoundNumber" : event["RoundNumber"], 
@@ -93,6 +96,7 @@ def GetSchedule():
     schedule = fastf1.get_event_schedule(year, include_testing=False)
     for _, event in schedule.iterrows():
         events.append({"eventName" : event["EventName"], "eventStart" : str(event["Session1DateUtc"])[:10], "eventEnd" : str(event["Session5DateUtc"])[:10]})
+    time.sleep(2)
     return events
 
 

@@ -23,7 +23,7 @@ body {
   }
 
   .next-event {
-    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto max-h-50 col-span-1 row-span-1 lg:col-span-2;
+    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto min-h-40 max-h-50 col-span-1 row-span-1 lg:col-span-2;
   }
   .next-event h1 {
     @apply uppercase text-2xl font-bold text-gray-800 p-1;
@@ -43,6 +43,16 @@ body {
   }
   .schedule p {
     @apply font-light text-gray-800;
+  }
+
+  .standings-table-skeleton {
+    @apply min-h-100 min-w-50  bg-gray-300 animate-pulse;
+  }
+  .schedule-table-skeleton {
+    @apply min-h-150 min-w-50  bg-gray-300 animate-pulse;
+  }
+  .next-event-skeleton {
+    @apply min-h-40 min-w-50  bg-gray-300 animate-pulse;
   }
 
   .nav-bar {

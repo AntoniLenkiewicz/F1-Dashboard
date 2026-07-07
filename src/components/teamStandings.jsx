@@ -1,7 +1,25 @@
 import { useState, useEffect } from 'react'
 
 
-function TeamStandings({ className = '', teamStandings }){
+function TeamStandings({ className = '', teamStandings, loading}) {
+    if (loading) {
+        return (
+            <div className={`standings-table standings-table-skeleton ${className}`}>
+        <table>
+            <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Team</th>
+                <th>Points</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        </div>
+        );
+    };
+
     return (
     <div className={`standings-table ${className}`}>
         <table>

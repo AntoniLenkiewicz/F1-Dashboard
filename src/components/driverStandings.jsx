@@ -1,7 +1,24 @@
 import { useState, useEffect } from 'react'
 
 
-function DriverStandings({ className='', driverStandings }){
+function DriverStandings({ className='', driverStandings, loading }) {
+    if (loading) {
+        return (
+            <div className={`standings-table standings-table-skeleton ${className}`}>
+        <table>
+            <thead>
+            <tr>
+                <th>Pos</th>
+                <th>Driver</th>
+                <th>Points</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        </div>
+        );
+    };
     return (
     <div className={`standings-table ${className}`}>
         <table>

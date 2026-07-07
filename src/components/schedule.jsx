@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 
-function Schedule({ className='', schedule = []} ) {
+function Schedule({ className='', schedule = [], loading}) {
+  if (loading) {
+    return(
+    <div className = {`schedule schedule-table-skeleton ${className}`}> 
+      <h1>Schedule</h1>
+    </div>
+    );
+  }
     return(
     <div className = {`schedule ${className}`}> 
       <h1>Schedule</h1>  

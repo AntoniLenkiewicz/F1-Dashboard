@@ -24,17 +24,32 @@ def get_current_time():
 
 @app.route('/api/driverstandings')
 def get_driver_standings():
-    year = datetime.now().year
-    season = int(request.args.get('year', year))
-    driver_standings = GetDriverStandings(season)
-    return(driver_standings)
+    try:
+        year = datetime.now().year
+        season = int(request.args.get('year', year))
+        if season > year:
+            return 'Content not found', 404
+        elif season < 1950:
+            return 'Bad Request', 400
+        driver_standings = GetDriverStandings(season)
+        return(driver_standings)
+    except:
+        return 'Bad Request', 400
+    
 
 @app.route('/api/teamstandings')
 def get_team_standings():
-    year = datetime.now().year
-    season = int(request.args.get('year', year))
-    team_standings = GetTeamStandings(season)
-    return(team_standings)
+    try:
+        year = datetime.now().year
+        season = int(request.args.get('year', year))
+        if season > year:
+            return 'Content not found', 404
+        elif season < 1950:
+            return 'Bad Request', 400
+        team_standings = GetTeamStandings(season)
+        return(team_standings)
+    except:
+        return 'Bad Request', 400
 
 @app.route('/api/getnextevent')
 def get_next_event():
