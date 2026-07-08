@@ -2,7 +2,7 @@ import time
 from datetime import datetime, timezone
 from flask import Flask, jsonify, request
 import fastf1
-from models import GetDriverStandings, GetTeamStandings, GetNextEvent, GetSchedule
+from models import GetDriverStandings, GetTeamStandings, GetNextEvent, GetSchedule, GetGrandPrixResults, GetGrandPrixInfo
 
 fastf1.Cache.enable_cache("./cache")
 
@@ -60,6 +60,37 @@ def get_next_event():
 def get_event_schedule():
     schedule = GetSchedule()
     return schedule
+
+@app.route('/api/getgpresults')
+def get_gp_results():
+    try:
+        year = datetime.now().year
+        season = int(request.args.get('year', year))
+        grandPrixName = str(request.args('gp', ''))
+        session = str(request.args('gp', ''))
+        if season > year:
+            return 'Content not found', 404
+        elif season < 1950:
+            return 'Bad Request', 400
+        results = GetGrandPrixResults(season, grandPrixName, session = session)
+        return results
+    except:
+        return 'Bad Request', 400
+    
+@app.route('/api/getgpinfo')
+def get_gp_info():
+    try:
+        year = datetime.now().year
+        season = int(request.args.get('year', year))
+        grandPrixName = str(request.args.get('gp', ''))
+        if season > year:
+            return 'Content not found', 404
+        elif season < 1950:
+            return 'Bad Request', 400
+        gpInfo = GetGrandPrixInfo(year, grandPrixName)
+        return gpInfo
+    except:
+        return 'Bad Request', 400
 
 # fast f1 
 def on_message(msg):

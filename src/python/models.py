@@ -98,6 +98,28 @@ def GetSchedule():
     return events
 
 
+def GetGrandPrixInfo(year, grandPrix):
+    event = fastf1.get_event(year, grandPrix)
+    return {"eventName": event["EventName"], "eventRoundNumber" : int(event["RoundNumber"]), "eventStart" : str(event["Session1DateUtc"])[:10], "eventEnd" : str(event["Session5DateUtc"])[:10]}
+
+
+def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
+    selectedSession = kwargs.get('session', 0)
+    event = fastf1.get_event(year, grandPrix)
+    sessionDates = [event.Session1DateUtc, event.Session2DateUtc, event.Session3DateUtc, event.Session4DateUtc, event.Session5DateUtc]
+    sessionNames = [event.Session1, event.Session2, event.Session3, event.Session4, event.Session5]
+    if not selectedSession:
+        sessionNum = 0
+        date = datetime.now()
+        for i in sessionDates:
+            if date > i:
+                sessionNum = sessionNum + 1
+        session = fastf1.get_session(year, grandPrix, sessionNum)
+    else:
+        session = fastf1.get_session(year, grandPrix, selectedSession)
+    session.load()
+    return {"sessionName":session.name, "allSessionNames": sessionNames, "sessionResults": session.results}
+
 # Trial for getting live data
 
 # from fastf1.livetiming.client import SignalRClient

@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+
 import DriverStandings from "../components/driverStandings";
 import TeamStandings from "../components/teamStandings";
 import NextEvent from '../components/nextEvent';
 import Schedule from '../components/schedule';
+
 import useDriverStandings from '../hooks/driverStandingsHook';
 import useTeamStandings from '../hooks/teamStandingsHook';
 import useGetNextEvent from '../hooks/getNextEventHook';

@@ -4,11 +4,11 @@ function Navbar() {
     return (
         <nav className = "nav-bar">
             <div className = "flex mt-5 ml-5 w-full">
-                <p>F1 STATS</p>
+                <Link to='/'>F1STATS</Link>
             </div>
             <div className = "flex m-5 gap-5">
-                <Link to='/'>HOME</Link>
                 <Link to='/time'>TIME</Link>
+                <Link to='/gpresults'>RESULTS</Link>
             </div>
       </nav>
     );

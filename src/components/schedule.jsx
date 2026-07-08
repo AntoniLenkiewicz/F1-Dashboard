@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
+import TransformDate from '../helpers/transformDate';
 
 function Schedule({ className='', schedule = [], loading}) {
   if (loading) {
     return(
-    <div className = {`schedule schedule-table-skeleton ${className}`}> 
+    <div className = {`schedule schedule-skeleton ${className}`}> 
       <h1>Schedule</h1>
     </div>
     );
@@ -21,12 +22,6 @@ function Schedule({ className='', schedule = [], loading}) {
     </div>
     );
 }
-function TransformDate(date) {
-  let d = new Date(date).toLocaleDateString("en-GB", {
-    month: "long",
-    day: "numeric",
-  });
-  return d;
-}
+
 
 export default Schedule;

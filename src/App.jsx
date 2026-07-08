@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, Link } from 'react-router-dom';
 import './index.css'
-import HomePage from './pages/homePage'
 import './App.css'
 import Navbar from './components/navbar';
+import HomePage from './pages/homePage'
+import GrandPrixResultsPage from './pages/grandPrixResultsPage';
 
 function Time() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -24,6 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/time' element={<Time />} />
+          <Route path='/gpresults' element={<GrandPrixResultsPage />} />
         </Routes>
       </section>
     </>
