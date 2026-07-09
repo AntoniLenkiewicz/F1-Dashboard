@@ -1,11 +1,12 @@
 import flask
 import fastf1
 from datetime import datetime, timezone
-from flask import Flask
+from flask import Flask, jsonify
 from fastf1.livetiming.client import SignalRClient
 from fastf1.ergast import Ergast
 import math
 import time
+import numpy as np
 
 def GetDriverStandings(season):
     schedule = fastf1.get_event_schedule(season, include_testing=False)
@@ -118,8 +119,20 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
     else:
         session = fastf1.get_session(year, grandPrix, selectedSession)
     session.load()
-    return {"sessionName":session.name, "allSessionNames": sessionNames, "sessionResults": session.results}
+    session.results[['Time', 'Q1', 'Q2', 'Q3']] = session.results[['Time', 'Q1', 'Q2', 'Q3']].astype(str)
+    session.results.rename(columns={"Position":"Pos", "DriverNumber" : "Num", "TeamName": "Team"}, inplace=True)
+    columns = []
+    if session.name == 'Race' or session.name == 'Sprint':
+        columns = ['Pos','Num', 'LastName', 'Team', 'Time', 'Laps', 'Points']
+    elif 'Practice' in session.name:
+        print("practice")
+    elif 'Qualifying' in session.name:
+        ['Num',  'TeamName', 'TeamColor',  'LastName', 'Q1', 'Q2', 'Q3', 'Position']
+    results = session.results[columns]
+    results = results.replace({np.nan:None}).to_dict(orient="records")
+    return {"sessionName":session.name, "allSessionNames": sessionNames, "sessionResults": results, "columns":columns}
 
+# print(GetGrandPrixResults(2025, "British GP", session=1)['sessionResults']['Time'])
 # Trial for getting live data
 
 # from fastf1.livetiming.client import SignalRClient

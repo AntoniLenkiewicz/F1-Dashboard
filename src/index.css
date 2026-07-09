@@ -57,7 +57,7 @@ body {
   .schedule h1 {
     @apply uppercase text-2xl font-bold text-gray-800;
   }
-  .schedule h2 {
+  .schedule {
     @apply text-lg font-medium text-gray-800;
   }
   .schedule p {
@@ -65,6 +65,24 @@ body {
   }
   .schedule-skeleton {
     @apply min-h-150 min-w-50  bg-gray-300 animate-pulse;
+  }
+    .results-table {
+    @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-3 row-span-4;
+  }
+  .results-table table {
+    @apply w-full table-fixed
+  }
+  .results-table th {
+    @apply bg-gray-300 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
+  }
+  .results-table td {
+    @apply px-4 py-2 border-b border-gray-700 text-gray-800;
+  }
+  .results-table tr:hover {
+    @apply bg-gray-700/50;
+  }
+  .results-table-skeleton {
+    @apply min-h-100 min-w-50  bg-gray-300 animate-pulse;
   }
 
   .nav-bar {

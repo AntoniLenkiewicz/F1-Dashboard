@@ -6,13 +6,13 @@ from models import GetDriverStandings, GetTeamStandings, GetNextEvent, GetSchedu
 
 fastf1.Cache.enable_cache("./cache")
 
-session = fastf1.get_session(2026, "Austria", "Race")
-session.load()
-messages = session.race_control_messages
-lapData = session.laps
-laps = lapData.pick_drivers('VER')
-telemetry = laps.get_car_data()
-position = laps.get_pos_data()
+# session = fastf1.get_session(2026, "Austria", "Race")
+# session.load()
+# messages = session.race_control_messages
+# lapData = session.laps
+# laps = lapData.pick_drivers('VER')
+# telemetry = laps.get_car_data()
+# position = laps.get_pos_data()
 
 
 app = Flask(__name__)
@@ -66,8 +66,8 @@ def get_gp_results():
     try:
         year = datetime.now().year
         season = int(request.args.get('year', year))
-        grandPrixName = str(request.args('gp', ''))
-        session = str(request.args('gp', ''))
+        grandPrixName = str(request.args.get('gp', ''))
+        session = str(request.args.get('session', ''))
         if season > year:
             return 'Content not found', 404
         elif season < 1950:
