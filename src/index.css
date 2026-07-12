@@ -19,25 +19,6 @@ body {
     @apply min-h-40 min-w-50  bg-gray-300 animate-pulse;
   }
 
-  .standings-table {
-    @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-1 row-span-4;
-  }
-  .standings-table table {
-    @apply w-full table-fixed
-  }
-  .standings-table th {
-    @apply bg-gray-300 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
-  }
-  .standings-table td {
-    @apply px-4 py-2 border-b border-gray-700 text-gray-800;
-  }
-  .standings-table tr:hover {
-    @apply bg-gray-700/50;
-  }
-  .standings-table-skeleton {
-    @apply min-h-100 min-w-50  bg-gray-300 animate-pulse;
-  }
-
   .next-event {
     @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto min-h-40 max-h-50 col-span-1 row-span-1 lg:col-span-2;
   }
@@ -66,6 +47,42 @@ body {
   .schedule-skeleton {
     @apply min-h-150 min-w-50  bg-gray-300 animate-pulse;
   }
+
+  .session-selector {
+    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto min-h-40 max-h-50 col-span-1 row-span-1 lg:col-span-1;
+  }
+  .session-selector h1 {
+    @apply uppercase text-2xl font-bold text-gray-800 p-1;
+  }
+  .session-selector p {
+    @apply uppercase text-sm font-medium text-gray-700 p-1;
+  }
+  .session-selector button {
+    @apply uppercase text-sm font-medium text-gray-700 p-1 block;
+  }
+  .session-selector-skeleton {
+    @apply min-h-40 min-w-50  bg-gray-300 animate-pulse;
+  }
+
+  .standings-table {
+    @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-1 row-span-4;
+  }
+  .standings-table table {
+    @apply w-full table-fixed
+  }
+  .standings-table th {
+    @apply bg-gray-300 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
+  }
+  .standings-table td {
+    @apply px-4 py-2 border-b border-gray-700 text-gray-800;
+  }
+  .standings-table tr:hover {
+    @apply bg-gray-700/50;
+  }
+  .standings-table-skeleton {
+    @apply min-h-100 min-w-50  bg-gray-300 animate-pulse;
+  }
+
     .results-table {
     @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-3 row-span-4;
   }

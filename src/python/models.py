@@ -127,7 +127,7 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
     elif 'Practice' in session.name:
         print("practice")
     elif 'Qualifying' in session.name:
-        ['Num',  'TeamName', 'TeamColor',  'LastName', 'Q1', 'Q2', 'Q3', 'Position']
+        columns = ['Pos', 'Num','LastName', 'Team', 'Q1', 'Q2', 'Q3']
     results = session.results[columns]
     results = results.replace({np.nan:None}).to_dict(orient="records")
     return {"sessionName":session.name, "allSessionNames": sessionNames, "sessionResults": results, "columns":columns}

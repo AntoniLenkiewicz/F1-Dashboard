@@ -31,7 +31,7 @@ function ResultsTable({ className='', results, columns,  loading}) {
                     <tr key={index}>
                         {columns
                         .map((column)=>
-                        <td>{driver[column]}</td>
+                        <td key= {column}>{driver[column]}</td>
                         )}
                     </tr>
                     )}
