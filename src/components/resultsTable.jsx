@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function ResultsTable({ className='', results, columns,  loading}) {
+function ResultsTable({ className='', results, columns, loading}) {
     if (loading){
         return (
             <div className = {`results-table results-table-skeleton ${className}`}>

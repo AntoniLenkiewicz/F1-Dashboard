@@ -16,7 +16,7 @@ function Schedule({ className='', schedule = [], loading}) {
         <>
             <hr/>
             <h2>{event.eventName}</h2>
-            <p>{TransformDate(event.eventStart)}-{TransformDate(event.eventEnd)}</p>
+            <p>{TransformDate(event.eventStartDate)}-{TransformDate(event.eventEndDate)}</p>
         </>
       ))}
     </div>

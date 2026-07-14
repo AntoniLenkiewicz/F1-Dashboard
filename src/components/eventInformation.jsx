@@ -12,7 +12,7 @@ function EventInformation({ className, eventInfo, loading }) {
     <div className = {`event-info ${className}`}>
         <h1>Round: {eventInfo.eventRoundNumber}</h1>
         <h1>{eventInfo.eventName}</h1>
-        <p>{TransformDate(eventInfo.eventStart)} - {TransformDate(eventInfo.eventEnd)} {eventInfo.eventStart.substring(0,4)}</p>
+        <p>{TransformDate(eventInfo.eventStartDate)} - {TransformDate(eventInfo.eventEndDate)} {eventInfo.eventStartDate.substring(0,4)}</p>
     </div>
     );
 }

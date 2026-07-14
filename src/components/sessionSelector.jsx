@@ -9,9 +9,8 @@ function SessionSelector({ className, allSessions, selectedSession, selectSessio
     };
     return (
     <div className = {`session-selector ${className}`}>
-        <p>Session:{selectedSession}</p>
         {allSessions.map((session)=>(
-            <button key = {session} title = {session}
+            <button className={(selectedSession==session) ? 'session-selected' : 'session-not-selected'} key = {session} title = {session}
             onClick={()=>selectSession(session)}>{session}</button>
         ))}
     </div>

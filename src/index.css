@@ -58,10 +58,16 @@ body {
     @apply uppercase text-sm font-medium text-gray-700 p-1;
   }
   .session-selector button {
-    @apply uppercase text-sm font-medium text-gray-700 p-1 block;
+    @apply uppercase text-sm text-gray-700 p-1 block;
   }
   .session-selector-skeleton {
     @apply min-h-40 min-w-50  bg-gray-300 animate-pulse;
+  }
+  .session-selected {
+    @apply font-extrabold;
+  }
+  .session-not-selected {
+    @apply font-light;
   }
 
   .standings-table {
