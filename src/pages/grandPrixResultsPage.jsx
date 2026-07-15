@@ -11,38 +11,50 @@ function GrandPrixResultsPage() {
     const year = 2026;
     const gp = "British";
     const [selectedSession, setSelectedSession] = useState();
+    const [sessionData, setSessionData] = useState({
+        sessionName: '',
+        results: [],
+        columns: [],
+        allSessions: []
+    });
+    const [loading, setLoading] = useState(false);
     const sessionsMap = useRef(new Map());
-
     const eventInfo = useGetEventInfo({year, gp});
-    const isCached = sessionsMap.current.get(selectedSession);
-    const results = useGetResults({year, gp, session: selectedSession});
-    const sessions = results.data?.allSessions ?? [];
 
-    useEffect(()=> {
-        if (!selectedSession && results.data?.sessionName){
-        setSelectedSession(results.data.sessionName);
+    async function loadSession(year, gp, session=''){
+        if (!sessionsMap.current.get(session)) {
+            setLoading(true);
+            const response = await fetch(`api/getgpresults?year=${year}&gp=${gp}&session=${session}`);
+            const data = await response.json();
+            const sessionName = data.sessionName;
+
+            setSelectedSession(sessionName);
+            sessionsMap.current.set(sessionName, data);
+            setSessionData(data);
+            setLoading(false);
+
+        } else {
+            const data = sessionsMap.current.get(session);
+            setSessionData(data);
         };
-    }, [results.data.sessionName]);
-
-    useEffect(() => {
-        if (selectedSession && results.data && selectedSession == results.data.sessionName) {
-            sessionsMap.current.set(selectedSession, results.data);
+    };
+    useEffect(() =>{
+        if (!selectedSession && !loading) {
+            loadSession(year, gp);
         }
-    }, [selectedSession, results.data]);
+    }, [eventInfo.data]);
 
     function handleSelectSession(data){
         setSelectedSession(data);
+        loadSession(year, gp, data);
     };
-    const currentSession = sessionsMap.current.get(selectedSession);
-    const sessionData = currentSession ?? results.data;
-    const loading = !currentSession && results.loading;
 
     return (
         <>
             <div className='gp-results-page'>
                 <EventInformation className = 'lg:col-start-2 lg:row-start-1' eventInfo={eventInfo.data} loading={eventInfo.loading} />
                 <ResultsTable className = 'lg:col-start-2 lg:row-start-2' results={sessionData.results} columns = {sessionData.columns} loading={loading} />
-                <SessionSelector className = 'lg:col-start-4 lg:row-start-1' selectedSession={selectedSession} selectSession={handleSelectSession} allSessions={sessions} loading = {!(sessions)} />
+                <SessionSelector className = 'lg:col-start-4 lg:row-start-1' selectedSession={selectedSession} selectSession={handleSelectSession} allSessions={sessionData.allSessions} loading = {!sessionData.allSessions} />
             </div>
         </>
     );
