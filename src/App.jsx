@@ -5,6 +5,7 @@ import './App.css'
 import Navbar from './components/navbar';
 import HomePage from './pages/homePage'
 import GrandPrixResultsPage from './pages/grandPrixResultsPage';
+import PastResultsPage from './pages/pastResultsPage';
 
 function Time() {
   const [currentTime, setCurrentTime] = useState(0);
@@ -25,7 +26,8 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/time' element={<Time />} />
-          <Route path='/gpresults' element={<GrandPrixResultsPage />} />
+          <Route path='/pastresults/:year/:gp' element={<GrandPrixResultsPage />} />
+          <Route path='/pastresults/:year' element = {<PastResultsPage />} />
         </Routes>
       </section>
     </>

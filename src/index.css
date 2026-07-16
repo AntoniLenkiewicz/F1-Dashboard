@@ -7,7 +7,7 @@ body {
 
 @layer components {
   .event-info {
-    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto min-h-40 max-h-50 col-span-1 row-span-1 lg:col-span-2;
+    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto min-h-40 max-h-50 col-span-2 row-span-1;
   }
   .event-info h1 {
     @apply uppercase text-2xl font-bold text-gray-800 p-1;
@@ -49,7 +49,7 @@ body {
   }
 
   .session-selector {
-    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto min-h-40 max-h-50 col-span-1 row-span-1 lg:col-span-1;
+    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto min-h-40 max-h-50 col-span-2 row-span-1 lg:col-span-1;
   }
   .session-selector h1 {
     @apply uppercase text-2xl font-bold text-gray-800 p-1;
@@ -90,7 +90,7 @@ body {
   }
 
     .results-table {
-    @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-3 row-span-4;
+    @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-2 row-span-4 lg:col-span-3;
   }
   .results-table table {
     @apply w-full table-fixed

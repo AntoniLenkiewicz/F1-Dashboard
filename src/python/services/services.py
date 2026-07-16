@@ -93,8 +93,9 @@ def GetNextEvent():
                     eventTime = str(event[(f"Session{i}DateUtc")])
                 )
                 return asdict(nextEvent)
-def GetSchedule():
-    year = datetime.now().year
+def GetSchedule(year):
+    if not year or type(year) is not int:
+        year = datetime.now().year
     scheduledEvents = Schedule(events=[])
     schedule = fastf1.get_event_schedule(year, include_testing=False)
     for _, event in schedule.iterrows():
@@ -105,7 +106,6 @@ def GetSchedule():
             eventEndDate = str(event["Session5DateUtc"])[:10]
         )
         scheduledEvents.events.append(scheduledEvent)
-    print(scheduledEvents.events)
     return (scheduledEvents.events)
 
 
@@ -117,7 +117,6 @@ def GetGrandPrixInfo(year, grandPrix):
             eventStartDate = str(event["Session1DateUtc"])[:10],
             eventEndDate = str(event["Session5DateUtc"])[:10]
         )
-    print(asdict(eventDetails))
     return asdict(eventDetails)
 
 def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
@@ -158,7 +157,7 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
             )
             results.results.append(driverRaceResult)
 
-    elif 'Practice' in session.name:
+    elif session.name == 'Practice 1' or session.name == 'Practice 2' or session.name == 'Practice 3':
         results = GPResults(
             sessionName = str(session.name),
             results = [],
@@ -169,26 +168,33 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
         filteredSession = session.results.replace({np.nan:0})
         for _, driverResult in filteredSession.iterrows():
             driver = driverResult['Abbreviation']
-            totalLaps=len(laps.pick_drivers(driver))
+            totalLaps = len(laps.pick_drivers(driver))
             fastestLap = laps.pick_drivers(driver).pick_fastest()
+            if totalLaps is None:
+                totalLaps = 0
+            if fastestLap is None:
+                fastestLap = 'NA'
+            else:
+                fastestLap = fastestLap.LapTime
             driverPracticeResult = DriverPracticeResults(
                 pos = int(driverResult['Pos']),
                 num = int(driverResult['Num']),
                 lastName = str(driverResult['LastName']),
                 team = str(driverResult['Team']),
-                bestTime = str(fastestLap.LapTime),
+                bestTime = str(fastestLap),
                 laps = int(totalLaps)
             )
             results.results.append(driverPracticeResult)
 
-    elif 'Qualifying' in session.name:
+    elif session.name == 'Qualifying' or session.name == 'Sprint Qualifying':
         results = GPResults(
             sessionName = str(session.name),
             results = [],
             allSessions = sessionNames,
             columns = ['pos', 'num', 'lastName', 'team', 'q1', 'q2', 'q3']
         )
-        for _, driverResult in session.results.iterrows():
+        filteredSession = session.results.replace({np.nan:0})
+        for _, driverResult in filteredSession.iterrows():
             driverQualiResult = DriverQualiResults(
                 pos = int(driverResult['Pos']),
                 num = int(driverResult['Num']),
@@ -200,5 +206,3 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
             )
             results.results.append(driverQualiResult)
     return asdict(results)
-
-print(GetGrandPrixResults(2026, "British", session = 5))

@@ -1,15 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
-
+import { useParams } from 'react-router-dom';
 import EventInformation from '../components/eventInformation';
 import ResultsTable from '../components/resultsTable';
 import SessionSelector from '../components/sessionSelector';
 
 import useGetEventInfo from '../hooks/eventInfoHook';
-import useGetResults from '../hooks/getResultsHook';
 
 function GrandPrixResultsPage() {
-    const year = 2026;
-    const gp = "British";
+    const { year, gp } = useParams()
     const [selectedSession, setSelectedSession] = useState();
     const [sessionData, setSessionData] = useState({
         sessionName: '',
@@ -24,7 +22,7 @@ function GrandPrixResultsPage() {
     async function loadSession(year, gp, session=''){
         if (!sessionsMap.current.get(session)) {
             setLoading(true);
-            const response = await fetch(`api/getgpresults?year=${year}&gp=${gp}&session=${session}`);
+            const response = await fetch(`/api/getgpresults?year=${year}&gp=${gp}&session=${session}`, {cache: 'no-store'});
             const data = await response.json();
             const sessionName = data.sessionName;
 
@@ -52,9 +50,9 @@ function GrandPrixResultsPage() {
     return (
         <>
             <div className='gp-results-page'>
-                <EventInformation className = 'lg:col-start-2 lg:row-start-1' eventInfo={eventInfo.data} loading={eventInfo.loading} />
-                <ResultsTable className = 'lg:col-start-2 lg:row-start-2' results={sessionData.results} columns = {sessionData.columns} loading={loading} />
-                <SessionSelector className = 'lg:col-start-4 lg:row-start-1' selectedSession={selectedSession} selectSession={handleSelectSession} allSessions={sessionData.allSessions} loading = {!sessionData.allSessions} />
+                <EventInformation className = 'row-start-1 lg:col-start-2 lg:row-start-1' eventInfo={eventInfo.data} loading={eventInfo.loading} />
+                <ResultsTable className = 'row-start-3 lg:col-start-2 lg:row-start-2' results={sessionData.results} columns = {sessionData.columns} loading={loading} />
+                <SessionSelector className = 'row-start-2 lg:col-start-4 lg:row-start-1' selectedSession={selectedSession} selectSession={handleSelectSession} allSessions={sessionData.allSessions} loading = {!sessionData.allSessions} />
             </div>
         </>
     );

@@ -55,8 +55,13 @@ def routes(app):
 
     @app.route('/api/getschedule')
     def get_event_schedule():
-        schedule = GetSchedule()
-        return schedule
+        try:
+            year = datetime.now().year
+            season = int(request.args.get('year', year))
+            schedule = GetSchedule(season)
+            return schedule
+        except:
+            return 'Bad Request', 400
 
     @app.route('/api/getgpresults')
     def get_gp_results():
@@ -88,7 +93,7 @@ def routes(app):
             elif season < 1950:
                 return 'Bad Request', 400
             try:
-                gpInfo = GetGrandPrixInfo(year, grandPrixName)
+                gpInfo = GetGrandPrixInfo(season, grandPrixName)
                 return gpInfo
             except:
                 return 'Server Error', 500

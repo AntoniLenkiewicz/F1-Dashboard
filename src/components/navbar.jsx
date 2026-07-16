@@ -8,7 +8,7 @@ function Navbar() {
             </div>
             <div className = "flex m-5 gap-5">
                 <Link to='/time'>TIME</Link>
-                <Link to='/gpresults'>RESULTS</Link>
+                <Link to='/pastresults/2026'>RESULTS</Link>
             </div>
       </nav>
     );

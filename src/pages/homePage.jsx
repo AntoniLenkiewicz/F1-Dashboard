@@ -17,7 +17,7 @@ function HomePage() {
     const driverStandings = useDriverStandings(year);
     const teamStandings = useTeamStandings(year);
     const nextEvent = useGetNextEvent();
-    const schedule = useGetSchedule();
+    const schedule = useGetSchedule(currentYear);
 
   return (
     <>
@@ -25,7 +25,7 @@ function HomePage() {
             <NextEvent className='lg:col-start-2 lg:row-start-1' nextEvent={nextEvent.data} loading={nextEvent.loading} />
             <DriverStandings className='lg:col-start-2 lg:row-start-2 scrollbar' driverStandings={driverStandings.data} loading={driverStandings.loading}/>
             <TeamStandings className='lg:col-start-3 lg:row-start-2 scrollbar' teamStandings={teamStandings.data} loading={teamStandings.loading}/>
-            <Schedule className='lg:col-start-4 lg:row-start-1 scrollbar' schedule={schedule.data} loading={schedule.loading}/>
+            <Schedule className='lg:col-start-4 lg:row-start-1 scrollbar' year={currentYear} schedule={schedule.data} loading={schedule.loading}/>
         </div>
     </>
   );
