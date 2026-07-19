@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
 function NextEvent({ className, nextEvent, loading }) {
     const [timeLeft, setTimeLeft] = useState("");
@@ -29,7 +29,8 @@ function NextEvent({ className, nextEvent, loading }) {
     };
     return (
     <div className = {`next-event ${className}`}>
-        <h1>Round: {nextEvent.eventRoundNumber}</h1>
+        <h1>Next Event</h1>
+        <h1>Round: {nextEvent.roundNumber}</h1>
         <h1>{nextEvent.eventName} {nextEvent.eventType}</h1>
         <p>{timeLeft}</p>
     </div>

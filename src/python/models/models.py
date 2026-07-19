@@ -55,9 +55,13 @@ class DriverQualiResults:
 
 @dataclass
 class DriverPracticeResults:
-    pos: int
     num: int
     lastName: str
     team: str
     bestTime: str
     laps: int
+
+@dataclass
+class SeasonInformation:
+    year: int
+    rounds: int

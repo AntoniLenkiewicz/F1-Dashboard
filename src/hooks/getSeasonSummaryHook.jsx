@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import {useState, useEffect} from 'react';
 
-function useGetSchedule(year){
+
+function useGetSeasonInfo(year) {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(true);
-        fetch(`/api/getschedule?year=${year}`)
+        fetch(`/api/getseasoninfo?year=${year}`)
         .then(res => res.json())
         .then(data => {
             setData(data);
@@ -15,5 +16,4 @@ function useGetSchedule(year){
     }, [year]);
     return {data, loading};
 };
-
-export default useGetSchedule;
+export default useGetSeasonInfo;

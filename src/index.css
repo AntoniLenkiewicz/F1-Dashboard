@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 @import "tailwindcss";
 
 
 body {
-  @apply min-h-screen flex flex-col bg-gray-100 text-gray-800 font-mono;
+  @apply min-h-screen flex flex-col bg-gray-100 text-gray-800;
+  font-family: 'Jetbrains Mono', monospace;
 }
 
 @layer components {
@@ -30,6 +32,16 @@ body {
   }
   .next-event-skeleton {
     @apply min-h-40 min-w-50  bg-gray-300 animate-pulse;
+  }
+
+  .past-season {
+    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto min-h-40 max-h-50 col-span-1 row-span-1;
+  }
+  .past-season h1 {
+    @apply uppercase text-2xl font-bold text-gray-800 p-1;
+  }
+  .past-season p {
+    @apply lowercase text-lg font-medium text-gray-700 p-1;
   }
 
   .schedule {
@@ -70,6 +82,19 @@ body {
     @apply font-light;
   }
 
+  .season-info {
+    @apply w-full border-3 rounded-md border-gray-800 text-sm text-left overflow-y-auto min-h-40 max-h-50 col-span-1 row-span-1;
+  }
+  .season-info h1 {
+    @apply uppercase text-2xl font-bold text-gray-800 p-1;
+  }
+  .season-info p {
+    @apply uppercase text-lg font-medium text-gray-700 p-1;
+  }
+  .season-info-skeleton {
+    @apply min-h-40 min-w-50  bg-gray-300 animate-pulse;
+  }
+
   .standings-table {
     @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-1 row-span-4;
   }
@@ -89,11 +114,11 @@ body {
     @apply min-h-100 min-w-50  bg-gray-300 animate-pulse;
   }
 
-    .results-table {
+  .results-table {
     @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-2 row-span-4 lg:col-span-3;
   }
   .results-table table {
-    @apply w-full table-fixed
+    @apply w-full table-auto;
   }
   .results-table th {
     @apply bg-gray-300 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
@@ -118,6 +143,9 @@ body {
   @apply w-full h-full grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-5 lg:grid-rows-4 ;
   }
   .gp-results-page {
+  @apply w-full h-full grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-5 lg:grid-rows-4 ;
+  }
+  .past-results-page {
   @apply w-full h-full grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-5 lg:grid-rows-4 ;
   }
 }

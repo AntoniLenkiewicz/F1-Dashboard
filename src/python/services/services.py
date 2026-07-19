@@ -6,7 +6,7 @@ import numpy as np
 from dataclasses import asdict, dataclass
 
 sys.path.insert(1, 'models')
-from models import NextEvent, EventDetails, Schedule, DriverPoints, TeamPoints, DriverQualiResults, DriverRaceResults, DriverPracticeResults, GPResults
+from models import NextEvent, EventDetails, Schedule, DriverPoints, TeamPoints, DriverQualiResults, DriverRaceResults, DriverPracticeResults, GPResults, SeasonInformation
 
 def GetDriverStandings(season):
     schedule = fastf1.get_event_schedule(season, include_testing=False)
@@ -151,7 +151,7 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
                 num = int(driverResult['Num']),
                 lastName = str(driverResult['LastName']),
                 team = str(driverResult['Team']),
-                time = str(driverResult['Time']),
+                time = str(driverResult['Time'])[8:-3],
                 laps = int(driverResult['Laps']),
                 points = float(driverResult['Points'])
             )
@@ -162,7 +162,7 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
             sessionName = str(session.name),
             results = [],
             allSessions = sessionNames,
-            columns = ['pos', 'num', 'lastName', 'team', 'bestTime', 'laps']
+            columns = ['num', 'lastName', 'team', 'bestTime', 'laps']
         )
         laps = session.laps
         filteredSession = session.results.replace({np.nan:0})
@@ -177,11 +177,10 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
             else:
                 fastestLap = fastestLap.LapTime
             driverPracticeResult = DriverPracticeResults(
-                pos = int(driverResult['Pos']),
                 num = int(driverResult['Num']),
                 lastName = str(driverResult['LastName']),
                 team = str(driverResult['Team']),
-                bestTime = str(fastestLap),
+                bestTime = str(fastestLap)[8:-3],
                 laps = int(totalLaps)
             )
             results.results.append(driverPracticeResult)
@@ -200,9 +199,20 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
                 num = int(driverResult['Num']),
                 lastName = str(driverResult['LastName']),
                 team = str(driverResult['Team']),
-                q1 = str(driverResult['Q1']),
-                q2 = str(driverResult['Q2']),
-                q3 = str(driverResult['Q3'])
+                q1 = str(driverResult['Q1'])[8:-3],
+                q2 = str(driverResult['Q2'])[8:-3],
+                q3 = str(driverResult['Q3'])[8:-3]
             )
             results.results.append(driverQualiResult)
     return asdict(results)
+
+def GetSeasonInfo(year):
+    schedule = fastf1.get_event_schedule(year, include_testing=False)
+    rounds = (len(schedule))
+    seasonInfo = SeasonInformation(
+        year = int(year),
+        rounds = int(rounds)
+    )
+    return asdict(seasonInfo)
+
+print(GetSeasonInfo(2026))

@@ -15,13 +15,11 @@ function Schedule({ year, className='', schedule = [], loading}) {
       <h1>Schedule</h1> 
       <nav>
       {schedule.map((event) => (
-        <>
             <Link to = {`/pastresults/${year}/${event.eventName}`}>
             <hr/>
             <h2>{event.eventName}</h2>
             <p>{TransformDate(event.eventStartDate)}-{TransformDate(event.eventEndDate)}</p>
             </Link>
-        </>
       ))}
       </nav>
     </div>

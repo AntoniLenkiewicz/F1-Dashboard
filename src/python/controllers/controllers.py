@@ -5,7 +5,7 @@ from flask import Flask, jsonify, request
 import fastf1
 
 sys.path.insert(1, 'services')
-from services import GetDriverStandings, GetTeamStandings, GetNextEvent, GetSchedule, GetGrandPrixResults, GetGrandPrixInfo
+from services import GetDriverStandings, GetTeamStandings, GetNextEvent, GetSchedule, GetGrandPrixResults, GetGrandPrixInfo, GetSeasonInfo
 
 def routes(app):
     @app.route('/api/time')
@@ -95,6 +95,23 @@ def routes(app):
             try:
                 gpInfo = GetGrandPrixInfo(season, grandPrixName)
                 return gpInfo
+            except:
+                return 'Server Error', 500
+        except:
+            return 'Bad Request', 400
+    
+    @app.route('/api/getseasoninfo')
+    def get_season_info():
+        try:
+            year = datetime.now().year
+            season = int(request.args.get('year', year))
+            if season > year:
+                return 'Content not found', 404
+            elif season < 1950:
+                return 'Bad Request', 400
+            try:
+                seasonInfo = GetSeasonInfo(season)
+                return seasonInfo
             except:
                 return 'Server Error', 500
         except:
