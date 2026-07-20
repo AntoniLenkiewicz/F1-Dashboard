@@ -6,77 +6,8 @@ import numpy as np
 from dataclasses import asdict, dataclass
 
 sys.path.insert(1, 'models')
-from models import NextEvent, EventDetails, Schedule, DriverPoints, TeamPoints, DriverQualiResults, DriverRaceResults, DriverPracticeResults, GPResults, SeasonInformation
+from EventModels import NextEvent, EventDetails, Schedule, DriverQualiResults, DriverRaceResults, DriverPracticeResults, GPResults, SeasonInformation
 
-def GetDriverStandings(season):
-    schedule = fastf1.get_event_schedule(season, include_testing=False)
-    standings = DriverPoints(points={})
-    currentDate = datetime.now(timezone.utc)
-    for _, event in schedule.iterrows():
-        eventName, sprintStart, raceStart, eventFormat = event["EventName"], event["Session3DateUtc"], event["Session5DateUtc"], event["EventFormat"]
-
-        if eventFormat == "sprint_qualifying" and str(sprintStart) < str(currentDate):
-            sprint = fastf1.get_session(season, eventName, "S")
-            sprint.load(laps=False, telemetry=False, weather=False, messages=False)
-            for _, driverSprintData in sprint.results.iterrows():
-                if driverSprintData["Abbreviation"] not in standings.points:
-                    if math.isnan(driverSprintData["Points"]):
-                        driverSprintData["Points"] = 0
-                    standings.points[driverSprintData["Abbreviation"]] = driverSprintData["Points"]
-                else:
-                    if math.isnan(driverSprintData["Points"]):
-                        driverSprintData["Points"] = 0
-                    standings.points[driverSprintData["Abbreviation"]] = standings.points[driverSprintData["Abbreviation"]] + driverSprintData["Points"]
-
-        if str(raceStart) < str(currentDate):
-            race = fastf1.get_session(season, eventName, "R")
-            race.load(laps=False, telemetry=False, weather=False, messages=False)
-            for _, driverRaceData in race.results.iterrows():
-                if driverRaceData["Abbreviation"] not in standings.points:
-                    if math.isnan(driverRaceData["Points"]):
-                        driverRaceData["Points"] = 0
-                    standings.points[driverRaceData["Abbreviation"]] = driverRaceData["Points"]
-                else:
-                    if math.isnan(driverRaceData["Points"]):
-                        driverRaceData["Points"] = 0
-                    standings.points[driverRaceData["Abbreviation"]] = standings.points[driverRaceData["Abbreviation"]] + driverRaceData["Points"]
-    return (standings.points)
-
-
-
-def GetTeamStandings(season):
-    schedule = fastf1.get_event_schedule(season, include_testing=False)
-    standings = TeamPoints(points = {})
-    currentDate = datetime.now(timezone.utc)
-    for _, event in schedule.iterrows():
-        eventName, sprintStart, raceStart, eventFormat = event["EventName"], event["Session3DateUtc"], event["Session5DateUtc"], event["EventFormat"]
-
-        if eventFormat == "sprint_qualifying" and str(sprintStart) < str(currentDate):
-            sprint = fastf1.get_session(season, eventName, "S")
-            sprint.load(laps=False, telemetry=False, weather=False, messages=False)
-            for _, driverSprintData in sprint.results.iterrows():
-                if driverSprintData["TeamName"] not in standings.points:
-                    if math.isnan(driverSprintData["Points"]):
-                        driverSprintData["Points"] = 0
-                    standings.points[driverSprintData["TeamName"]] = driverSprintData["Points"]
-                else:
-                    if math.isnan(driverSprintData["Points"]):
-                        driverSprintData["Points"] = 0
-                    standings.points[driverSprintData["TeamName"]] = standings.points[driverSprintData["TeamName"]] + driverSprintData["Points"]
-
-        if str(raceStart) < str(currentDate):
-            race = fastf1.get_session(season, eventName, "R")
-            race.load(laps=False, telemetry=False, weather=False, messages=False)
-            for _, driverRaceData in race.results.iterrows():
-                if driverRaceData["TeamName"] not in standings.points:
-                    if math.isnan(driverRaceData["Points"]):
-                        driverRaceData["Points"] = 0
-                    standings.points[driverRaceData["TeamName"]] = driverRaceData["Points"]
-                else:
-                    if math.isnan(driverRaceData["Points"]):
-                        driverRaceData["Points"] = 0
-                    standings.points[driverRaceData["TeamName"]] = standings.points[driverRaceData["TeamName"]] + driverRaceData["Points"]
-    return (standings.points)
 
 # Will need updating later to return whether the event is currently underway
 def GetNextEvent():
@@ -93,6 +24,8 @@ def GetNextEvent():
                     eventTime = str(event[(f"Session{i}DateUtc")])
                 )
                 return asdict(nextEvent)
+            
+
 def GetSchedule(year):
     if not year or type(year) is not int:
         year = datetime.now().year
@@ -118,6 +51,7 @@ def GetGrandPrixInfo(year, grandPrix):
             eventEndDate = str(event["Session5DateUtc"])[:10]
         )
     return asdict(eventDetails)
+
 
 def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
     selectedSession = kwargs.get('session', 0)
@@ -206,6 +140,7 @@ def GetGrandPrixResults(year, grandPrix, *args, **kwargs):
             results.results.append(driverQualiResult)
     return asdict(results)
 
+
 def GetSeasonInfo(year):
     schedule = fastf1.get_event_schedule(year, include_testing=False)
     rounds = (len(schedule))
@@ -214,5 +149,3 @@ def GetSeasonInfo(year):
         rounds = int(rounds)
     )
     return asdict(seasonInfo)
-
-print(GetSeasonInfo(2026))

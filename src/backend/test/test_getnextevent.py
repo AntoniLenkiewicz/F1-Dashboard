@@ -5,7 +5,7 @@ def test_next_event_return(client):
 
     assert response.status_code == 200
 
-    assert isinstance(nextEvent["eventRoundNumber"], int)
+    assert isinstance(nextEvent["roundNumber"], int)
     assert isinstance(nextEvent["eventName"], str)
     assert isinstance(nextEvent["eventType"], str)
     assert isinstance(nextEvent["eventTime"], str)

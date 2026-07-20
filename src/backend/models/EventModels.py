@@ -18,13 +18,6 @@ class EventDetails:
 class Schedule:
     events: list[EventDetails]
 
-@dataclass
-class DriverPoints:
-    points: dict[str, float]
-
-@dataclass
-class TeamPoints:
-    points: dict[str, float]
 
 @dataclass
 class GPResults:

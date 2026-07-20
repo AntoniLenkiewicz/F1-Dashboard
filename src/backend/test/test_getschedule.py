@@ -6,8 +6,8 @@ def test_schedule_return(client):
     assert response.status_code == 200
     for event in schedule:
         assert isinstance(event["eventName"], str)
-        assert isinstance(event["eventStart"], str)
-        assert isinstance(event["eventEnd"], str)
+        assert isinstance(event["eventStartDate"], str)
+        assert isinstance(event["eventEndDate"], str)
 
 def test_schedule_wrong_method(client):
     response = client.post("/api/getschedule")
