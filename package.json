@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "api": "cd src/python && flask run --no-debugger"
+    "api": "cd src/backend && flask run --no-debugger"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.2",

@@ -19,8 +19,15 @@ def EventControllers(app):
         try:
             year = datetime.now().year
             season = int(request.args.get('year', year))
-            schedule = GetSchedule(season)
-            return schedule
+            if season > year:
+                return 'Content not found', 404
+            elif season < 1950:
+                return 'Bad Request', 400
+            try:
+                schedule = GetSchedule(season)
+                return schedule
+            except:
+                return 'Server Error', 500
         except:
             return 'Bad Request', 400
 

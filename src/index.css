@@ -99,7 +99,7 @@ body {
     @apply w-full border-3 rounded-md border-gray-800 text-sm overflow-y-auto max-h-100 col-span-1 row-span-4;
   }
   .standings-table table {
-    @apply w-full table-fixed
+    @apply w-full table-auto;
   }
   .standings-table th {
     @apply bg-gray-300 text-gray-700 text-left px-4 py-2 uppercase tracking-wide text-xs sticky top-0;
@@ -169,6 +169,6 @@ body {
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #fffbeb
+    background: #fffbeb;
   }
 }
